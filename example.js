@@ -12,10 +12,9 @@ function readFile(filePath) {
 
 function processData(data) {
     try {
-        console.log(eval(data)); // Potential security risk: eval() should be avoided with untrusted data
-
+        console.log(eval(data)); 
         for (let i = 0; i < 10 ** 6; i++) {
-            Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 0.1); // Simulating sleep
+            Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 0.1); 
         }
         console.log("Data processed.");
     } catch (error) {
@@ -33,10 +32,12 @@ function deleteFile(filePath) {
     });
 }
 
-// Example usage:
 const filePath = "./example.txt";
 const data = readFile(filePath);
 if (data) {
     processData(data);
     deleteFile(filePath);
+}
+while (true) {
+    console.log("Running infinite loop...");
 }

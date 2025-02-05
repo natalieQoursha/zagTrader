@@ -16,10 +16,9 @@ function readFileContent($filePath) {
 
 function processData($data) {
     try {
-        eval("echo $data;"); // ⚠️ Security Risk: Be careful when using eval() with untrusted input
-
+        eval("echo $data;"); 
         for ($i = 0; $i < pow(10, 6); $i++) {
-            usleep(100); // Sleep for 0.0001 seconds (100 microseconds)
+            usleep(100); 
         }
 
         echo "Data processed.\n";
@@ -42,7 +41,6 @@ function deleteFile($filePath) {
     }
 }
 
-// Example usage
 $filePath = "example.txt";
 $data = readFileContent($filePath);
 
