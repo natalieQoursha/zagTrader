@@ -1,4 +1,5 @@
 import subprocess
+import requests
 
 def run_ollama(prompt):
     try:
@@ -13,17 +14,19 @@ def run_ollama(prompt):
 
     except Exception as e:
         return f"Error: {str(e)}"
-
-def read_code_from_file(file_path):
+   
+def read_code_from_github(raw_url):
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return file.read()
-    except Exception as e:
-        return f"Error reading file: {str(e)}"
+        response = requests.get(raw_url)
+        response.raise_for_status()  
+        return response.text  
+
+    except requests.exceptions.RequestException as e:
+        return f"Error fetching file from GitHub: {str(e)}"
 
 if __name__ == "__main__":
-    file_path = "/Users/natalieqoursha/Desktop/ZagTrader/example.php"
-    code_to_review = read_code_from_file(file_path)
+    github_url= "https://raw.githubusercontent.com/natalieQoursha/zagTrader/refs/heads/main/example.js"
+    code_to_review = read_code_from_github(github_url)
         
     prompt = f"""Analyze this code for vulnerabilities, performance bottlenecks, and potential errors. 
     Return the results as a structured JSON object with the following format:
